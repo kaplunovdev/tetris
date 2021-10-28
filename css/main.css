@@ -1,0 +1,26 @@
+.tetris__main{
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 506px;
+    height: 828px;
+    border: 1px solid green;
+   
+}
+.tetris{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.tetris__info{
+    width: 250px;
+    border: 1px solid green;
+    border-left: none;
+}
+.cell{
+    border: 1px solid rgb(233, 231, 231);
+    width: 44px;
+    height: 44px;
+}

@@ -1,26 +1,71 @@
-.tetris__main{
+.tetris__main {
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
     width: 506px;
     height: 828px;
-    border: 1px solid green;
-   
+    border: 1px solid rgb(233, 231, 231);
 }
-.tetris{
+.tetris {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    margin-top: 70px;
 }
 
-.tetris__info{
+.tetris__info {
     width: 250px;
-    border: 1px solid green;
     border-left: none;
+    position: relative;
+    background: #52ad7296;
 }
-.cell{
+.cell {
     border: 1px solid rgb(233, 231, 231);
     width: 44px;
     height: 44px;
+}
+.title {
+    text-align: center;
+    font-size: 45px;
+    font-family: monospace;
+    font-weight: bold;
+    color: rgb(13, 158, 132);
+    margin-bottom: 20px;
+}
+.cell_bg {
+    background: #13cfb5;
+}
+.info__start {
+    
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+   
+}
+.info__start button{
+    padding: 10px 20px;
+    font-size: 30px;
+    font-family: monospace;
+    cursor: pointer;
+    border-radius: 5px;
+    border:none;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    margin-bottom: 20px;
+
+}
+.info__start button:hover{
+    box-shadow: none;
+}
+.info__count{
+    padding: 10px;
+    font-size: 30px;
+    font-family: monospace;
+}
+.info__total, .info__record{
+    color: tomato;
+    font-weight: 800;
+}
+.complete{
+    background: #13cfb5;
 }

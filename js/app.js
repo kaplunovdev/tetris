@@ -22,7 +22,7 @@ start.addEventListener('click', function (elem) {
     create();
 
     //Скорость падения
-    setInterval(() => {
+    let interval = setInterval(() => {
         move();
     }, time);
 
@@ -46,10 +46,9 @@ for (let y = 18; y > 0; y--) {
         cell[i].setAttribute('y', y);
         i++;
     }
-
 }
 
-let x = 5, y = 15;
+let x = 5, y = 17;
 
 
 let array = [
@@ -58,51 +57,268 @@ let array = [
     [
         [0, 1],
         [0, 2],
-        [0, 3]
+        [0, 3],
+        //Поворот на 90 
+        [
+            [-1, 1],
+            [0, 0],
+            [1, -1],
+            [2, -2],
+        ],
+        //Поворот на 180
+        [
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+            [-2, 2],
+        ],
+        //Поворот на 270 
+        [
+            [-1, 1],
+            [0, 0],
+            [1, -1],
+            [2, -2],
+        ],
+        //Поворот на 360
+        [
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+            [-2, 2],
+
+        ]
+
     ],
 
     //Квадрат
     [
         [1, 0],
         [0, 1],
-        [1, 1]
+        [1, 1],
+        //Поворот на 90 
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        //Поворот на 180
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        //Поворот на 270 
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        //Поворот на 360
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ]
     ],
+
 
     //L - revert
     [
         [1, 0],
         [1, 1],
-        [1, 2]
+        [1, 2],
+        //Поворот на 90 
+        [
+            [0, 0],
+            [0, 0],
+            [1, -1],
+            [-1, -1],
+        ],
+        //Поворот на 180
+        [
+            [0, -1],
+            [-1, 0],
+            [-2, 1],
+            [1, 0],
+        ],
+        //Поворот на 270 
+        [
+            [2, 0],
+            [0, 0],
+            [1, -1],
+            [1, -1],
+        ],
+        //Поворот на 360
+        [
+            [-2, 0],
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+        ],
     ],
+
+
+
     //L
     [
         [1, 0],
         [0, 1],
-        [0, 2]
+        [0, 2],
+        //Поворот на 90 
+        [
+            [0, 0],
+            [-1, 1],
+            [1, 0],
+            [2, -1],
+        ],
+        //Поворот на 180
+        [
+            [1, -1],
+            [1, -1],
+            [-1, 0],
+            [-1, 0],
+        ],
+        //Поворот на 270 
+        [
+            [-1, 0],
+            [0, -1],
+            [2, -2],
+            [1, -1],
+        ],
+        //Поворот на 360
+        [
+            [0, -1],
+            [0, -1],
+            [-2, 0],
+            [-2, 0],
+        ],
     ],
-    // 
+
+    // молния правая
 
     [
         [1, 0],
         [-1, 1],
-        [0, 1]
+        [0, 1],
+        //Поворот на 90 
+        [
+            [0, -1],
+            [-1, 0],
+            [2, -1],
+            [1, 0],
+        ],
+        //Поворот на 180
+        [
+            [0, 0],
+            [1, -1],
+            [-2, 0],
+            [-1, -1],
+        ],
+        //Поворот на 270 
+        [
+            [0, -1],
+            [-1, 0],
+            [2, -1],
+            [1, 0],
+        ],
+        //Поворот на 360
+        [
+            [0, 0],
+            [1, -1],
+            [-2, 0],
+            [-1, -1],
+        ],
     ],
+
+    // молния левая
 
     [
         [1, 0],
+        [1, 1],
+        [2, 1],
+        //Поворот на 90 
+        [
+            [2, -1],
+            [0, 0],
+            [1, -1],
+            [-1, 0],
+        ],
+        //Поворот на 180
+        [
+            [-2, 0],
+            [0, -1],
+            [-1, 0],
+            [1, -1],
+        ],
+        //Поворот на 270 
+        [
+            [2, -1],
+            [0, 0],
+            [1, -1],
+            [-1, 0],
+        ],
+        //Поворот на 360
+        [
+            [-2, 0],
+            [0, -1],
+            [-1, 0],
+            [1, -1],
+        ],
+    ],
+    //фигура призовые места
+    [
+        [1, 0],
         [2, 0],
-        [1, 1]
+        [1, 1],
+        //Поворот на 90 
+        [
+            [1, -1],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+        //Поворот на 180
+        [
+            [0, 0],
+            [-1, 0],
+            [-1, 0],
+            [1, -1],
+        ],
+        //Поворот на 270 
+        [
+            [1, -1],
+            [1, -1],
+            [1, -1],
+            [0, 0],
+        ],
+        //Поворот на 360
+        [
+            [-2, 0],
+            [0, -1],
+            [0, -1],
+            [-1, -1],
+
+        ]
+
     ],
 ]
 
 let currentFigure = 0;
 let figureBody = 0;
+let rotate = 1;
 
 function create() {
     function getRandom() {
         return Math.round(Math.random() * (array.length - 1))
     }
 
+
+
+    rotate = 1;
     currentFigure = getRandom();
 
     figureBody = [
@@ -169,11 +385,11 @@ function move() {
                     count++;
                     if (count == 11) {
                         score += 11;
-                         if (record <= score) {
+                        if (record <= score) {
                             newRecord = score
                             localStorage.record = newRecord;
                             document.querySelector('.info__record').innerHTML = localStorage.record;
-                         }
+                        }
 
 
                         document.querySelector('.info__total').innerHTML = score;
@@ -200,6 +416,13 @@ function move() {
             }
 
         }
+        // for(let x=1; x<12;x++){
+        //     if(document.querySelector(`[x = "${x}"][y = "17"]`).classList.contains('complete')){
+        //         //clearInterval(interval)
+        //         alert('Конец игры');
+        //         break;
+        //     }
+        // }
         create();
     }
 
@@ -251,6 +474,37 @@ window.addEventListener('keydown', function (e) {
         newState(1);
     } else if (e.keyCode == 40) {
         move();
+    } else if (e.keyCode == 38) {
+        flag = true;
+
+        let figureNew = [
+            document.querySelector(`[x = "${+coordinates1[0] + array[currentFigure][rotate + 2][0][0]}"][y = "${+coordinates1[1] + array[currentFigure][rotate + 2][0][1]}"]`),
+            document.querySelector(`[x = "${+coordinates2[0] + array[currentFigure][rotate + 2][1][0]}"][y = "${+coordinates2[1] + array[currentFigure][rotate + 2][1][1]}"]`),
+            document.querySelector(`[x = "${+coordinates3[0] + array[currentFigure][rotate + 2][2][0]}"][y = "${+coordinates3[1] + array[currentFigure][rotate + 2][2][1]}"]`),
+            document.querySelector(`[x = "${+coordinates4[0] + array[currentFigure][rotate + 2][3][0]}"][y = "${+coordinates4[1] + array[currentFigure][rotate + 2][3][1]}"]`),
+
+        ];
+        for (let i = 0; i < figureNew.length; i++) {
+            if (!figureNew[i] || figureNew[i].classList.contains('complete')) {
+                flag = false;
+            }
+        }
+
+        if (flag) {
+            for (let i = 0; i < figureBody.length; i++) {
+                figureBody[i].classList.remove('cell_bg')
+            }
+        }
+        figureBody = figureNew;
+        for (let i = 0; i < figureBody.length; i++) {
+            figureBody[i].classList.add('cell_bg');
+
+        }
+        if (rotate < 4) {
+            rotate++
+        } else {
+            rotate = 1;
+        }
     }
 })
 

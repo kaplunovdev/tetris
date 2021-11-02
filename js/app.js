@@ -1,13 +1,10 @@
-let start = document.querySelector('.info__start')
+let start = document.querySelector('.start')
 let time = 0;
 
 // Выбор уровня сложности
 start.addEventListener('click', function (elem) {
-    for (let key of cell) {
-        key.classList.remove('cell_bg')
-    }
-    if (elem.target.classList.contains('01')) {
 
+    if (elem.target.classList.contains('01')) {
 
         time = 1000;
 
@@ -19,12 +16,16 @@ start.addEventListener('click', function (elem) {
         time = 300;
 
     }
-    create();
-
     //Скорость падения
     let interval = setInterval(() => {
         move();
     }, time);
+
+    start.style.display = 'none';
+
+    create();
+
+
 
 })
 
@@ -48,6 +49,7 @@ for (let y = 18; y > 0; y--) {
     }
 }
 
+//Начальные координаты падения
 let x = 5, y = 15;
 
 
@@ -312,10 +314,10 @@ let figureBody = 0;
 let rotate = 1;
 
 function create() {
+    // Выбор случайной фигуры
     function getRandom() {
         return Math.round(Math.random() * (array.length - 1))
     }
-
 
 
     rotate = 1;
@@ -339,10 +341,6 @@ let score = 0;
 let record = 0;
 (localStorage.record) ? document.querySelector('.info__record').innerHTML = localStorage.record :
     document.querySelector('.info__record').innerHTML = 0;
-
-
-
-
 
 
 //Падение фигуры
@@ -389,11 +387,14 @@ function move() {
                     count++;
                     if (count == 11) {
                         score += 11;
-                        if (record <= score) {
+                        record = score;
+
+                        //localStorage.record = record;
+                        if (localStorage.record < score || localStorage.record === undefined) {
                             localStorage.record = score;
-                            document.querySelector('.info__record').innerHTML = localStorage.record;
                         }
 
+                        document.querySelector('.info__record').innerHTML = localStorage.record;
 
                         document.querySelector('.info__total').innerHTML = score;
                         for (let m = 1; m < 12; m++) {
@@ -419,13 +420,7 @@ function move() {
             }
 
         }
-        // for(let x=1; x<12;x++){
-        //     if(document.querySelector(`[x = "${x}"][y = "17"]`).classList.contains('complete')){
-        //         //clearInterval(interval)
-        //         alert('Конец игры');
-        //         break;
-        //     }
-        // }
+
         create();
     }
 
@@ -455,6 +450,7 @@ window.addEventListener('keydown', function (e) {
                 flag = false;
             }
         }
+
 
         if (flag) {
             for (let i = 0; i < figureBody.length; i++) {

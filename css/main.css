@@ -34,16 +34,24 @@
 .cell_bg {
     background: #13cfb5;
 }
-.info__start {
-    
+.start {
+    background: #78e6d7;
+    padding: 20px;
+    border-radius: 10px;
     position: absolute;
     text-align: center;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+    z-index: 1;
    
 }
-.info__start button{
+.start p{
+    font-size: 30px;
+    font-family: monospace;
+    margin: 0 0 30px;
+}
+.start button{
     padding: 10px 20px;
     font-size: 25px;
     font-family: monospace;
@@ -54,7 +62,7 @@
     margin-bottom: 20px;
 
 }
-.info__start button:hover{
+.start button:hover{
     box-shadow: none;
 }
 .info__count{

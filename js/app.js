@@ -48,7 +48,7 @@ for (let y = 18; y > 0; y--) {
     }
 }
 
-let x = 5, y = 17;
+let x = 5, y = 15;
 
 
 let array = [
@@ -337,7 +337,11 @@ function create() {
 let score = 0;
 //Рекорд
 let record = 0;
-document.querySelector('.info__record').innerHTML = localStorage.record;
+(localStorage.record) ? document.querySelector('.info__record').innerHTML = localStorage.record :
+    document.querySelector('.info__record').innerHTML = 0;
+
+
+
 
 
 
@@ -386,8 +390,7 @@ function move() {
                     if (count == 11) {
                         score += 11;
                         if (record <= score) {
-                            newRecord = score
-                            localStorage.record = newRecord;
+                            localStorage.record = score;
                             document.querySelector('.info__record').innerHTML = localStorage.record;
                         }
 

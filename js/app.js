@@ -449,7 +449,9 @@ window.addEventListener('keydown', function (e) {
         for (let i = 0; i < figureNew.length; i++) {
             if (!figureNew[i] || figureNew[i].classList.contains('complete')) {
                 flag = false;
-            }
+            } 
+
+            console.log(('x = ' + figureNew[i].getAttribute('x')));
         }
 
 
@@ -508,6 +510,8 @@ window.addEventListener('keydown', function (e) {
         }
     }
 })
+
+
 
 
 

@@ -1,4 +1,5 @@
 let start = document.querySelector('.start')
+let start__bg = document.querySelector('.start__bg')
 let time = 0;
 
 // Выбор уровня сложности
@@ -22,7 +23,7 @@ start.addEventListener('click', function (elem) {
     }, time);
 
     start.style.display = 'none';
-
+    start__bg.style.display = 'none';
     create();
 
 
@@ -474,6 +475,7 @@ window.addEventListener('keydown', function (e) {
     } else if (e.keyCode == 40) {
         move();
     } else if (e.keyCode == 38) {
+
         flag = true;
 
         let figureNew = [

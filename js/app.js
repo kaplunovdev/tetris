@@ -1,13 +1,13 @@
-let start = document.querySelector('.start')
+let start__buttons = document.querySelector('.start__wrap')
 let start__bg = document.querySelector('.start__bg')
 let time = 0;
+let interval;
 
-// Выбор уровня сложности
-start.addEventListener('click', function (elem) {
+start__buttons.addEventListener('click', function (elem) {
 
     if (elem.target.classList.contains('01')) {
 
-        time = 1000;
+        time = 800;
 
     } else if (elem.target.classList.contains('02')) {
         time = 500;
@@ -17,24 +17,21 @@ start.addEventListener('click', function (elem) {
         time = 300;
 
     }
-    //Скорость падения
-    let interval = setInterval(() => {
-        move();
-    }, time);
 
-    start.style.display = 'none';
+    document.querySelector('.start').style.display = 'none';
     start__bg.style.display = 'none';
     create();
 
-
+    interval = setInterval(() => {
+        move();
+    }, time);
 
 })
 
 
 let tetris = document.querySelector('.tetris__main');
 
-//Заполним поле ячейками
-for (let i = 1; i < 199; i++) {
+for (let i = 1; i < 232; i++) {
     let cell = document.createElement('div');
     cell.classList.add('cell');
     tetris.appendChild(cell);
@@ -42,7 +39,7 @@ for (let i = 1; i < 199; i++) {
 
 let cell = document.querySelectorAll('.cell')
 let i = 0;
-for (let y = 18; y > 0; y--) {
+for (let y = 21; y > 0; y--) {
     for (let x = 1; x < 12; x++) {
         cell[i].setAttribute('x', x);
         cell[i].setAttribute('y', y);
@@ -50,8 +47,7 @@ for (let y = 18; y > 0; y--) {
     }
 }
 
-//Начальные координаты падения
-let x = 5, y = 15;
+let x = 5, y = 18;
 
 
 let array = [
@@ -308,6 +304,7 @@ let array = [
         ]
 
     ],
+
 ]
 
 let currentFigure = 0;
@@ -315,7 +312,6 @@ let figureBody = 0;
 let rotate = 1;
 
 function create() {
-    // Выбор случайной фигуры
     function getRandom() {
         return Math.round(Math.random() * (array.length - 1))
     }
@@ -336,15 +332,14 @@ function create() {
         figureBody[i].classList.add('cell_bg');
     }
 }
-//Очки за игру
+
 let score = 0;
-//Рекорд
 let record = 0;
+
 (localStorage.record) ? document.querySelector('.info__record').innerHTML = localStorage.record :
     document.querySelector('.info__record').innerHTML = 0;
 
 
-//Падение фигуры
 function move() {
     let flagMove = true;
 
@@ -380,7 +375,8 @@ function move() {
             figureBody[i].classList.remove('cell_bg');
             figureBody[i].classList.add('complete');
         }
-        // Удаление ряда
+
+
         for (let i = 1; i < 15; i++) {
             let count = 0;
             for (let k = 1; k < 12; k++) {
@@ -390,7 +386,6 @@ function move() {
                         score += 11;
                         record = score;
 
-                        //localStorage.record = record;
                         if (localStorage.record < score || localStorage.record === undefined) {
                             localStorage.record = score;
                         }
@@ -421,15 +416,26 @@ function move() {
             }
 
         }
-
         create();
+
+        for (let i = 1; i < 12; i++) {
+
+            if (document.querySelector(`[x = "${i}"][y = "18"]`).classList.contains('complete')) {
+                clearInterval(interval);
+                alert(`Игра завершена со счетом: ${score}`);
+                break;
+            }
+        }
+
     }
 
 }
 
 
 let flag = true;
+
 window.addEventListener('keydown', function (e) {
+
     let coordinates1 = [figureBody[0].getAttribute('x'), figureBody[0].getAttribute('y')];
     let coordinates2 = [figureBody[1].getAttribute('x'), figureBody[1].getAttribute('y')];
     let coordinates3 = [figureBody[2].getAttribute('x'), figureBody[2].getAttribute('y')];
@@ -446,12 +452,13 @@ window.addEventListener('keydown', function (e) {
             document.querySelector(`[x = "${+coordinates4[0] + a}"][y = "${coordinates4[1]}"]`),
 
         ];
+
+
         for (let i = 0; i < figureNew.length; i++) {
             if (!figureNew[i] || figureNew[i].classList.contains('complete')) {
                 flag = false;
-            } 
+            }
 
-            console.log(('x = ' + figureNew[i].getAttribute('x')));
         }
 
 
@@ -460,23 +467,48 @@ window.addEventListener('keydown', function (e) {
                 figureBody[i].classList.remove('cell_bg')
             }
         }
+
         figureBody = figureNew;
+
         for (let i = 0; i < figureBody.length; i++) {
             figureBody[i].classList.add('cell_bg');
 
         }
 
-
-
     }
 
-    if (e.keyCode == 37) {
-        newState(-1);
-    } else if (e.keyCode == 39) {
-        newState(1);
-    } else if (e.keyCode == 40) {
+
+    if (e.keyCode === 37) {
+
+        if ((document.querySelector(`[x = "${+coordinates1[0] - 1}"][y = "${coordinates1[1]}"]`)).classList.contains('complete') ||
+            (document.querySelector(`[x = "${+coordinates2[0] - 1}"][y = "${coordinates2[1]}"]`)).classList.contains('complete') ||
+            (document.querySelector(`[x = "${+coordinates3[0] - 1}"][y = "${coordinates3[1]}"]`)).classList.contains('complete') ||
+            (document.querySelector(`[x = "${+coordinates4[0] - 1}"][y = "${coordinates4[1]}"]`)).classList.contains('complete')
+
+        ) {
+            flag = false;
+            newState(0);
+
+        } else {
+            newState(-1);
+
+        }
+
+    } else if (e.keyCode === 39) {
+        if ((document.querySelector(`[x = "${+coordinates1[0] + 1}"][y = "${coordinates1[1]}"]`)).classList.contains('complete') ||
+            (document.querySelector(`[x = "${+coordinates2[0] + 1}"][y = "${coordinates2[1]}"]`)).classList.contains('complete') ||
+            (document.querySelector(`[x = "${+coordinates3[0] + 1}"][y = "${coordinates3[1]}"]`)).classList.contains('complete') ||
+            (document.querySelector(`[x = "${+coordinates4[0] + 1}"][y = "${coordinates4[1]}"]`)).classList.contains('complete')
+
+        ) {
+            flag = false;
+        } else {
+            newState(1);
+
+        }
+    } else if (e.keyCode === 40) {
         move();
-    } else if (e.keyCode == 38) {
+    } else if (e.keyCode === 38) {
 
         flag = true;
 
@@ -487,28 +519,55 @@ window.addEventListener('keydown', function (e) {
             document.querySelector(`[x = "${+coordinates4[0] + array[currentFigure][rotate + 2][3][0]}"][y = "${+coordinates4[1] + array[currentFigure][rotate + 2][3][1]}"]`),
 
         ];
-        for (let i = 0; i < figureNew.length; i++) {
-            if (!figureNew[i] || figureNew[i].classList.contains('complete')) {
+        {
+
+            if (!(document.querySelector(`[x = "${+coordinates1[0] + array[currentFigure][rotate + 2][0][0] - 1}"][y = "${+coordinates1[1] + array[currentFigure][rotate + 2][0][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates2[0] + array[currentFigure][rotate + 2][1][0] - 1}"][y = "${+coordinates2[1] + array[currentFigure][rotate + 2][1][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates3[0] + array[currentFigure][rotate + 2][2][0] - 1}"][y = "${+coordinates3[1] + array[currentFigure][rotate + 2][2][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates4[0] + array[currentFigure][rotate + 2][3][0] - 1}"][y = "${+coordinates4[1] + array[currentFigure][rotate + 2][3][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates1[0] + array[currentFigure][rotate + 2][0][0]}"][y = "${+coordinates1[1] + array[currentFigure][rotate + 2][0][1] - 1}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates2[0] + array[currentFigure][rotate + 2][1][0]}"][y = "${+coordinates2[1] + array[currentFigure][rotate + 2][1][1] - 1}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates3[0] + array[currentFigure][rotate + 2][2][0]}"][y = "${+coordinates3[1] + array[currentFigure][rotate + 2][2][1] - 1}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates4[0] + array[currentFigure][rotate + 2][3][0]}"][y = "${+coordinates4[1] + array[currentFigure][rotate + 2][3][1] - 1}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates1[0] + array[currentFigure][rotate + 2][0][0] + 1}"][y = "${+coordinates1[1] + array[currentFigure][rotate + 2][0][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates2[0] + array[currentFigure][rotate + 2][1][0] + 1}"][y = "${+coordinates2[1] + array[currentFigure][rotate + 2][1][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates3[0] + array[currentFigure][rotate + 2][2][0] + 1}"][y = "${+coordinates3[1] + array[currentFigure][rotate + 2][2][1]}"]`).classList.contains('complete') ||
+                document.querySelector(`[x = "${+coordinates4[0] + array[currentFigure][rotate + 2][3][0] + 1}"][y = "${+coordinates4[1] + array[currentFigure][rotate + 2][3][1]}"]`).classList.contains('complete'))) {
+
+                flag = true;
+
+                for (let i = 0; i < figureNew.length; i++) {
+                    if (!figureNew[i] || figureNew[i].classList.contains('complete')) {
+                        flag = false;
+                    }
+                }
+
+                if (flag) {
+                    for (let i = 0; i < figureBody.length; i++) {
+                        figureBody[i].classList.remove('cell_bg')
+                    }
+                }
+                figureBody = figureNew;
+                for (let i = 0; i < figureBody.length; i++) {
+
+                    figureBody[i].classList.add('cell_bg');
+
+                }
+
+                if (rotate < 4 && flag !== false) {
+
+                    rotate++
+
+                } else {
+                    rotate = 1;
+                }
+            } else {
                 flag = false;
             }
-        }
 
-        if (flag) {
-            for (let i = 0; i < figureBody.length; i++) {
-                figureBody[i].classList.remove('cell_bg')
-            }
-        }
-        figureBody = figureNew;
-        for (let i = 0; i < figureBody.length; i++) {
-            figureBody[i].classList.add('cell_bg');
-
-        }
-        if (rotate < 4) {
-            rotate++
-        } else {
-            rotate = 1;
         }
     }
+
 })
 
 
